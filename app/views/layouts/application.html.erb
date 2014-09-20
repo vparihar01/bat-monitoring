@@ -68,6 +68,7 @@
             <ul class="nav nav-list">
               <li class="nav-header"><%= current_user.email if current_user.present?%></li>
               <li><%= link_to "Home Page", root_path %></li>
+              <li><%= link_to "Hosts", hosts_path if current_user.present?  %></li>
               <li><%= link_to "Logout", destroy_user_session_path, :method => 'delete' if current_user.present?  %></li>
               <li><%= link_to "Sign in", new_user_session_path if current_user.nil?  %></li>
             </ul>
