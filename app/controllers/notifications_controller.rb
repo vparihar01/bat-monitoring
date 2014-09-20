@@ -5,7 +5,7 @@ class NotificationsController < ApplicationController
   # GET /notifications
   # GET /notifications.json
   def index
-    @notifications = Notification.where(nagios_hostname: params[:host_name]).to_a
+    @notifications = Notification.where(nagios_hostname: params[:host_name]).to_a.sort{|i,j| j.nagios_epoch <=> i.nagios_epoch}
   end
 
   # GET /notifications/1
