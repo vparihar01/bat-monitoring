@@ -1,0 +1,6 @@
+development:
+  sessions:
+    default:
+      database: bat_monitering
+      hosts:
+        - localhost:27017
