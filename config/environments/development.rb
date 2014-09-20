@@ -34,3 +34,4 @@ Rails.application.configure do
   # Raises error for missing translations
   # config.action_view.raise_on_missing_translations = true
 end
+GCM_KEY="AIzaSyDRhJiLxnTCoT6ztIayXzyzFApIsVM_khM"
