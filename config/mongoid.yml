@@ -1,6 +1,6 @@
 development:
   sessions:
     default:
-      database: nagios
+      database: bat_monitoring
       hosts:
         - localhost:27017

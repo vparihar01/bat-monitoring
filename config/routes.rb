@@ -4,6 +4,9 @@ Rails.application.routes.draw do
 
   resources :notifications
   resources :hosts, :only =>[:index]
+  #resources :home , :only => [] do
+  #  get 'homepage', on: :collection
+  #end
 
   devise_for :users
   # The priority is based upon order of creation: first created -> highest priority.
