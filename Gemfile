@@ -43,3 +43,4 @@ gem "twitter-bootstrap-rails"
 # Use debugger
 # gem 'debugger', group: [:development, :test]
 
+gem 'moped', :git => 'git://github.com/mongoid/moped.git'
