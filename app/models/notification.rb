@@ -10,5 +10,14 @@ class Notification
   field :nagios_statelevel, type: String, default: ""
   field :nagios_attempt, type: String, default: ""
   field :nagios_message, type: String, default: ""
-end
+  field :nagios_epoch, type: String, default: ""
 
+  attr_accessor :nagios_epoch
+
+  def nagios_epoch
+    # custom actions
+    ###
+    Time.at(super.to_i)
+    # this is same as self[:attribute_name] = value
+  end
+end

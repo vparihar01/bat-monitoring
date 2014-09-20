@@ -1,8 +1,16 @@
 <p id="notice"><%= notice %></p>
 
 <p>
+  <strong>Nagios id:</strong>
+  <%= @notification._id %>
+</p>
+<p>
   <strong>Nagios type:</strong>
   <%= @notification.nagios_type %>
+</p>
+<p>
+  <strong>Nagios Time:</strong>
+  <%= @notification.nagios_epoch %>
 </p>
 
 <p>
