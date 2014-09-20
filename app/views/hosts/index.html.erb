@@ -1,12 +1,15 @@
 <h1>Hosts</h1>
+<div class="table-responsive">
 
-<ul>
-  <li>
-    <% @hosts.each_with_index do |host, index| %>
-        <div>
-         <%=link_to host,notifications_path({:host_name=> host}) %>
-        </div>
-    <% end %>
-  </li>
-</ul>
+  <ul>
+    <li>
+      <% @hosts.each_with_index do |host, index| %>
+          <div>
+            <%=link_to host,notifications_path({:host_name=> host}) %>
+          </div>
+      <% end %>
+    </li>
+  </ul>
+
+</div>
 
