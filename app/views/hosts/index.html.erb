@@ -1,15 +1,19 @@
 <h1>Hosts</h1>
-<div class="table-responsive">
+<table class="table">
+  <thead>
+  <tr>
+    <th>Nagios type</th>
+    <th>Nagios hostname</th>
+    <th colspan="3"></th>
+  </tr>
+  </thead>
 
-  <ul>
-    <li>
-      <% @hosts.each_with_index do |host, index| %>
-          <div>
-            <%=link_to host,notifications_path({:host_name=> host}) %>
-          </div>
-      <% end %>
-    </li>
-  </ul>
-
-</div>
-
+  <tbody>
+  <% @hosts.each_with_index do |host, index| %>
+      <tr>
+        <td><%= index+1 %></td>
+        <td><%=link_to host,notifications_path({:host_name=> host}) %></td>
+      </tr>
+  <% end %>
+  </tbody>
+</table>
