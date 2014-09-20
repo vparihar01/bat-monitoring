@@ -38,3 +38,42 @@
       <!--<% end %>-->
   <% end %>
 </div>
+<div class="row">
+  <% @hosts_status.each do |host| %>
+      <!--<%= link_to notifications_path({:host_name=> host}) do %>-->
+          <div class="col-sm-6 col-md-4">
+            <div class="thumbnail">
+              <div class="panel-info">
+                <div class="panel-heading">
+                  <h4 class="list-group-item-heading"><%= host.keys.first %></h4>
+                </div>
+              </div>
+              <div class="panel-default">
+                <div class="panel-heading">
+                  <h5 class="list-group-item-heading">Health Metre</h5>
+                </div>
+                <div class="panel-body">
+                  Panel content
+                </div>
+              </div>
+              <div class="panel-default">
+                <div class="panel-heading">
+                  <h5 class="list-group-item-heading">Crash Reports</h5>
+                </div>
+                <div class="panel-body">
+                  <%= host.keys.first %>
+                </div>
+              </div>
+              <div class="panel-default">
+                <div class="panel-heading">
+                  <h5 class="list-group-item-heading">Notifications</h5>
+                </div>
+                <div class="panel-body">
+                  Panel content
+                </div>
+              </div>
+            </div>
+          </div>
+      <!--<% end %>-->
+  <% end %>
+</div>
