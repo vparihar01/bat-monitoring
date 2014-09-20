@@ -1,0 +1,39 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Nagios type:</strong>
+  <%= @notification.nagios_type %>
+</p>
+
+<p>
+  <strong>Nagios hostname:</strong>
+  <%= @notification.nagios_hostname %>
+</p>
+
+<p>
+  <strong>Nagios service:</strong>
+  <%= @notification.nagios_service %>
+</p>
+
+<p>
+  <strong>Nagios state:</strong>
+  <%= @notification.nagios_state %>
+</p>
+
+<p>
+  <strong>Nagios statelevel:</strong>
+  <%= @notification.nagios_statelevel %>
+</p>
+
+<p>
+  <strong>Nagios attempt:</strong>
+  <%= @notification.nagios_attempt %>
+</p>
+
+<p>
+  <strong>Nagios message:</strong>
+  <%= @notification.nagios_message %>
+</p>
+
+<%= link_to 'Edit', edit_notification_path(@notification) %> |
+<%= link_to 'Back', notifications_path %>

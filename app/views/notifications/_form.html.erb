@@ -1,0 +1,45 @@
+<%= form_for(@notification) do |f| %>
+  <% if @notification.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@notification.errors.count, "error") %> prohibited this notification from being saved:</h2>
+
+      <ul>
+      <% @notification.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :nagios_type %><br>
+    <%= f.text_field :nagios_type %>
+  </div>
+  <div class="field">
+    <%= f.label :nagios_hostname %><br>
+    <%= f.text_field :nagios_hostname %>
+  </div>
+  <div class="field">
+    <%= f.label :nagios_service %><br>
+    <%= f.text_field :nagios_service %>
+  </div>
+  <div class="field">
+    <%= f.label :nagios_state %><br>
+    <%= f.text_field :nagios_state %>
+  </div>
+  <div class="field">
+    <%= f.label :nagios_statelevel %><br>
+    <%= f.text_field :nagios_statelevel %>
+  </div>
+  <div class="field">
+    <%= f.label :nagios_attempt %><br>
+    <%= f.text_field :nagios_attempt %>
+  </div>
+  <div class="field">
+    <%= f.label :nagios_message %><br>
+    <%= f.text_field :nagios_message %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
