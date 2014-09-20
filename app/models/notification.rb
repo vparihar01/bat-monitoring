@@ -28,7 +28,7 @@ class Notification
     notifications =notifications.group_by{|i| i.nagios_hostname}
     hosts = notifications.keys
     notifications.each do |key, value|
-     notifications_details.push({key => get_aggregate_data(key, notifications)})
+      notifications_details.push({key => get_aggregate_data(key, notifications)})
     end
     notifications_details
   end
@@ -49,12 +49,26 @@ class Notification
   end
 
   def self.get_status(last_five_status)
-    return 'DOWN' if last_five_status.include?('DOWN')
-    return 'CRITICAL' if last_five_status.include?('CRITICAL')
-    return 'WARNING' if last_five_status.include?('WARNING')
-    return 'UP' if last_five_status.include?('UP')
-    return 'STABLE' if last_five_status.include?('OK')
+    return 100 if last_five_status.include?('DOWN')
+    return 90 if last_five_status.include?('CRITICAL')
+    return self.get_warning(last_five_status)
   end
 
-
+  def self.get_warning(last_five_status)
+    status = last_five_status.count('WARNING')
+    case status
+      when 5
+        75
+      when 4
+        70
+      when 3
+        65
+      when 2
+        60
+      when 1
+        50
+      else
+        10
+    end
+  end
 end

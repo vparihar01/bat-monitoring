@@ -1,59 +1,50 @@
-<h1>Hosts</h1>
-<!--<div class="row">-->
-<!--<% @hosts.each do |host| %>-->
-    <!--&lt;!&ndash;<%= link_to notifications_path({:host_name=> host}) do %>&ndash;&gt;-->
-        <!--<div class="col-sm-6 col-md-4">-->
-        <!--<div class="thumbnail">-->
-        <!--<div class="panel-info">-->
-        <!--<div class="panel-heading">-->
-        <!--<h4 class="list-group-item-heading"><%= host %></h4>-->
-        <!--</div>-->
-        <!--</div>-->
-        <!--<div class="panel-default">-->
-        <!--<div class="panel-heading">-->
-        <!--<h5 class="list-group-item-heading">Health Metre</h5>-->
-        <!--</div>-->
-        <!--<div class="panel-body">-->
-        <!--Panel content-->
-        <!--</div>-->
-        <!--</div>-->
-        <!--<div class="panel-default">-->
-        <!--<div class="panel-heading">-->
-        <!--<h5 class="list-group-item-heading">Crash Reports</h5>-->
-        <!--</div>-->
-        <!--<div class="panel-body">-->
-        <!--Panel content-->
-        <!--</div>-->
-        <!--</div>-->
-        <!--<div class="panel-default">-->
-        <!--<div class="panel-heading">-->
-        <!--<h5 class="list-group-item-heading">Notifications</h5>-->
-        <!--</div>-->
-        <!--<div class="panel-body">-->
-        <!--Panel content-->
-        <!--</div>-->
-        <!--</div>-->
-        <!--</div>-->
-        <!--</div>-->
-        <!--&lt;!&ndash;<% end %>&ndash;&gt;-->
-    <!--<% end %>-->
-<!--</div>-->
+<div class="jumbotron">
+  <h1>Hosts</h1>
+  <p>Bat Monitoring - An App which provides you critical notifications and gives you real time monitoring of your servers</p>
+  <p><a class="btn btn-primary btn-lg" role="button">Learn more</a></p>
+</div>
 <div class="row">
   <% @hosts_status.each do |host| %>
       <!--<%= link_to notifications_path({:host_name=> host}) do %>-->
-          <div class="col-sm-6 col-md-6">
+          <div class="col-sm-6 col-md-4">
             <div class="thumbnail">
               <div class="panel-info">
                 <div class="panel-heading">
-                  <h3 class="list-group-item-heading"><%= host.keys.first %></h3>
+                  <h3 class="list-group-item-heading">
+                    <%= link_to notifications_path({:host_name=> host.keys.first}) do %>
+                        <%= host.keys.first %>
+                    <% end %>
+                  </h3>
+
                 </div>
               </div>
               <div class="panel-default">
                 <div class="panel-heading">
                   <h5 class="list-group-item-heading">Health Metre</h5>
                 </div>
-                <div class="panel-body">
-                  Panel content
+                <div class="panel-body icon-align-center center-block">
+                  <div class="text-center" id="<%= host.keys.first %>">
+                    <script>
+                        google.load("visualization", "1", {packages:["gauge"]});
+                        google.setOnLoadCallback(drawChart);
+                        function drawChart() {
+                            var data = google.visualization.arrayToDataTable([
+                                ['Label', 'Value'],
+                                ['Health', <%= host[host.keys.first][:status] %>]
+                            ]);
+
+                            var options = {
+                                width: 500, height: 300,
+                                redFrom: 85, redTo: 100,
+                                yellowFrom:60, yellowTo: 85,
+                                minorTicks: 5
+                            };
+
+                            var chart = new google.visualization.Gauge(document.getElementById("<%= host.keys.first %>"));
+                            chart.draw(data, options);
+                        }
+                    </script>
+                  </div>
                 </div>
               </div>
               <div class="panel-default">
@@ -65,12 +56,17 @@
                     <% host[host.keys.first][:crash_and_warn].each do |crash| %>
                         <% if crash[:status]=="DOWN" %>
                             <li class="list-group-item list-group-item-danger">
+                              <span class="glyphicon glyphicon-exclamation-sign"></span>
                         <% elsif crash[:status]=="CRITICAL" %>
                             <li class="list-group-item list-group-item-danger">
+                              <span class="glyphicon glyphicon-exclamation-sign"></span>
                         <% elsif crash[:status]=="WARNING" %>
                             <li class="list-group-item list-group-item-warning">
+                              <span class="glyphicon glyphicon-warning-sign"></span>
                         <%else %>
                             <li class="list-group-item">
+                              <span class="glyphicon glyphicon-hand-up"></span>
+
                         <% end %>
                         <%= crash[:status] %> at <%= crash[:time] %>
                         </li>
@@ -98,3 +94,5 @@
           <!--<% end %>-->
   <% end %>
 </div>
+
+
