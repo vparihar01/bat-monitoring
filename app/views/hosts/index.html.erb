@@ -1,51 +1,51 @@
 <h1>Hosts</h1>
-<div class="row">
-  <% @hosts.each do |host| %>
-      <!--<%= link_to notifications_path({:host_name=> host}) do %>-->
-          <div class="col-sm-6 col-md-4">
-            <div class="thumbnail">
-              <div class="panel-info">
-                <div class="panel-heading">
-                  <h4 class="list-group-item-heading"><%= host %></h4>
-                </div>
-              </div>
-              <div class="panel-default">
-                <div class="panel-heading">
-                  <h5 class="list-group-item-heading">Health Metre</h5>
-                </div>
-                <div class="panel-body">
-                  Panel content
-                </div>
-              </div>
-              <div class="panel-default">
-                <div class="panel-heading">
-                  <h5 class="list-group-item-heading">Crash Reports</h5>
-                </div>
-                <div class="panel-body">
-                  Panel content
-                </div>
-              </div>
-              <div class="panel-default">
-                <div class="panel-heading">
-                  <h5 class="list-group-item-heading">Notifications</h5>
-                </div>
-                <div class="panel-body">
-                  Panel content
-                </div>
-              </div>
-            </div>
-          </div>
-      <!--<% end %>-->
-  <% end %>
-</div>
+<!--<div class="row">-->
+<!--<% @hosts.each do |host| %>-->
+    <!--&lt;!&ndash;<%= link_to notifications_path({:host_name=> host}) do %>&ndash;&gt;-->
+        <!--<div class="col-sm-6 col-md-4">-->
+        <!--<div class="thumbnail">-->
+        <!--<div class="panel-info">-->
+        <!--<div class="panel-heading">-->
+        <!--<h4 class="list-group-item-heading"><%= host %></h4>-->
+        <!--</div>-->
+        <!--</div>-->
+        <!--<div class="panel-default">-->
+        <!--<div class="panel-heading">-->
+        <!--<h5 class="list-group-item-heading">Health Metre</h5>-->
+        <!--</div>-->
+        <!--<div class="panel-body">-->
+        <!--Panel content-->
+        <!--</div>-->
+        <!--</div>-->
+        <!--<div class="panel-default">-->
+        <!--<div class="panel-heading">-->
+        <!--<h5 class="list-group-item-heading">Crash Reports</h5>-->
+        <!--</div>-->
+        <!--<div class="panel-body">-->
+        <!--Panel content-->
+        <!--</div>-->
+        <!--</div>-->
+        <!--<div class="panel-default">-->
+        <!--<div class="panel-heading">-->
+        <!--<h5 class="list-group-item-heading">Notifications</h5>-->
+        <!--</div>-->
+        <!--<div class="panel-body">-->
+        <!--Panel content-->
+        <!--</div>-->
+        <!--</div>-->
+        <!--</div>-->
+        <!--</div>-->
+        <!--&lt;!&ndash;<% end %>&ndash;&gt;-->
+    <!--<% end %>-->
+<!--</div>-->
 <div class="row">
   <% @hosts_status.each do |host| %>
       <!--<%= link_to notifications_path({:host_name=> host}) do %>-->
-          <div class="col-sm-6 col-md-4">
+          <div class="col-sm-6 col-md-6">
             <div class="thumbnail">
               <div class="panel-info">
                 <div class="panel-heading">
-                  <h4 class="list-group-item-heading"><%= host.keys.first %></h4>
+                  <h3 class="list-group-item-heading"><%= host.keys.first %></h3>
                 </div>
               </div>
               <div class="panel-default">
@@ -61,7 +61,21 @@
                   <h5 class="list-group-item-heading">Crash Reports</h5>
                 </div>
                 <div class="panel-body">
-                  <%= host.keys.first %>
+                  <ul class="list-group">
+                    <% host[host.keys.first][:crash_and_warn].each do |crash| %>
+                        <% if crash[:status]=="DOWN" %>
+                            <li class="list-group-item list-group-item-danger">
+                        <% elsif crash[:status]=="CRITICAL" %>
+                            <li class="list-group-item list-group-item-danger">
+                        <% elsif crash[:status]=="WARNING" %>
+                            <li class="list-group-item list-group-item-warning">
+                        <%else %>
+                            <li class="list-group-item">
+                        <% end %>
+                        <%= crash[:status] %> at <%= crash[:time] %>
+                        </li>
+                    <% end %>
+                  </ul>
                 </div>
               </div>
               <div class="panel-default">
@@ -69,11 +83,18 @@
                   <h5 class="list-group-item-heading">Notifications</h5>
                 </div>
                 <div class="panel-body">
-                  Panel content
+                  <ul class="list-group">
+                    <% host[host.keys.first][:mail_sent_at].each do |mail| %>
+                        <li class="list-group-item warning">
+                          <b>Mail</b> and <b>Mobile</b> notification sent at <i><%= mail%></i>
+                        </li>
+                    <% end %>
+
+                  </ul>
                 </div>
               </div>
             </div>
           </div>
-      <!--<% end %>-->
+          <!--<% end %>-->
   <% end %>
 </div>
