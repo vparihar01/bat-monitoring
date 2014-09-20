@@ -95,6 +95,10 @@ Devise.setup do |config|
   # encryptor), the cost increases exponentially with the number of stretches (e.g.
   # a value of 20 is already extremely slow: approx. 60 seconds for 1 calculation).
   config.stretches = Rails.env.test? ? 1 : 10
+  # file: config/initializers/devise.rb
+  # ==> Configuration for :token_authenticatable
+  # Defines name of the authentication token params key
+  #config.token_authentication_key = :auth_token
 
   # Setup a pepper to generate the encrypted password.
   # config.pepper = 'd61264974810b16378075957fb16f4d75ac572c62572c346b63a3ae11e60448a632d47164149785e343a4ba5037fea2819870004d9b36f4dac200c37c3888427'

@@ -23,6 +23,11 @@ class User
   field :last_sign_in_at,    type: Time
   field :current_sign_in_ip, type: String
   field :last_sign_in_ip,    type: String
+  #field :authentication_token,    type: String
+
+
+  #before_save :ensure_authentication_token
+
 
   ## Confirmable
   # field :confirmation_token,   type: String
@@ -34,4 +39,15 @@ class User
   # field :failed_attempts, type: Integer, default: 0 # Only if lock strategy is :failed_attempts
   # field :unlock_token,    type: String # Only if unlock strategy is :email or :both
   # field :locked_at,       type: Time
+
+  def send_notification
+    device = Gcm::Device.find_by_registration_id(user.android_token)
+    notification = Gcm::Notification.new
+    notification.device = device
+    notification.collapse_key = "updates_available"
+    notification.delay_while_idle = true
+    notification.data = {:registration_ids => [user.android_token], :data => {:message_text => gate_msg}}
+    notification.save
+    Gcm::Notification.send_notifications
+  end
 end

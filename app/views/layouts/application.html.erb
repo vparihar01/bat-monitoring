@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><%= content_for?(:title) ? yield(:title) : "BatMonitoring" %></title>
     <%= csrf_meta_tags %>
+    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+
 
     <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
     <!--[if lt IE 9]>
@@ -35,6 +37,7 @@
     <%= favicon_link_tag 'favicon.ico', :rel => 'shortcut icon' %>
 
     <%= javascript_include_tag "application" %>
+
   </head>
   <body>
 
@@ -48,9 +51,13 @@
         <a class="navbar-brand" href="#">BatMonitoring</a>
         <div class="navbar-collapse collapse navbar-responsive-collapse">
           <ul class="nav navbar-nav">
-            <!-- <li><%= link_to "Link1", "/path1"  %></li>
-            <li><%= link_to "Link2", "/path2"  %></li>
-            <li><%= link_to "Link3", "/path3"  %></li> -->
+            <!--<li>-->
+              <!--<%= current_user.email if current_user.present?%>-->
+            <!--</li>-->
+            <li><%= link_to "Home Page", root_path %></li>
+            <li><%= link_to "Hosts", hosts_path if current_user.present?  %></li>
+            <li><%= link_to "Logout", destroy_user_session_path, :method => 'delete' if current_user.present?  %></li>
+            <li><%= link_to "Sign in", new_user_session_path if current_user.nil?  %></li>
           </ul>
         </div>
       </div>
@@ -58,22 +65,22 @@
 
     <div class="container">
       <div class="row">
-        <div class="col-lg-9">
+        <div class="col-lg-12">
           <%= bootstrap_flash %>
           <%= yield %>
         </div>
-        <div class="col-lg-3">
-          <div class="well sidebar-nav">
-            <h3>Welcome</h3>
-            <ul class="nav nav-list">
-              <li class="nav-header"><%= current_user.email if current_user.present?%></li>
-              <li><%= link_to "Home Page", root_path %></li>
-              <li><%= link_to "Hosts", hosts_path if current_user.present?  %></li>
-              <li><%= link_to "Logout", destroy_user_session_path, :method => 'delete' if current_user.present?  %></li>
-              <li><%= link_to "Sign in", new_user_session_path if current_user.nil?  %></li>
-            </ul>
-          </div><!--/.well -->
-        </div><!--/span-->
+        <!--<div class="col-lg-3">-->
+          <!--<div class="well sidebar-nav">-->
+            <!--<h3>Welcome</h3>-->
+            <!--<ul class="nav nav-list">-->
+              <!--<li class="nav-header"><%= current_user.email if current_user.present?%></li>-->
+              <!--<li><%= link_to "Home Page", root_path %></li>-->
+              <!--<li><%= link_to "Hosts", hosts_path if current_user.present?  %></li>-->
+              <!--<li><%= link_to "Logout", destroy_user_session_path, :method => 'delete' if current_user.present?  %></li>-->
+              <!--<li><%= link_to "Sign in", new_user_session_path if current_user.nil?  %></li>-->
+            <!--</ul>-->
+          <!--</div>&lt;!&ndash;/.well &ndash;&gt;-->
+        <!--</div>&lt;!&ndash;/span&ndash;&gt;-->
       </div><!--/row-->
 
       <footer>
