@@ -40,7 +40,7 @@ class Notification
       i[:time_of_notification] = i.nagios_epoch
     end
     crash_and_warn = data.select{|i| i.nagios_state == 'WARNING' || i.nagios_state == 'DOWN' || i.nagios_state == 'CRITICAL' }
-    crash_and_warn= crash_and_warn.sort{|i,j| j.time_of_notification <=> i.time_of_notification}.first(5).collect{|i| i.time_of_notification}
+    crash_and_warn= crash_and_warn.sort{|i,j| j.time_of_notification <=> i.time_of_notification}.first(5).collect{|i| {time: i.time_of_notification, status: i.nagios_state}}
     mail_sent_at = data.select{|i| i.nagios_statelevel == 'HARD'}.sort{|i,j| j.time_of_notification <=> i.time_of_notification}.first(5).collect{|i| i.time_of_notification}
     last_five_status = data.sort{|i,j| j.time_of_notification <=> i.time_of_notification}.first(5).collect{|i| i.nagios_state}
     status = get_status(last_five_status)
