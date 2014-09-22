@@ -71,4 +71,29 @@ class Notification
         10
     end
   end
+
+  def self.get_aggregate
+    aggregate = Notification.collection.aggregate({ "$group" => {
+        "_id" => {
+            "nagios_hostname" => "$nagios_hostname",
+            "nagios_state" => "$nagios_state",
+            "nagios_service" => "$nagios_service",
+            "nagios_epoch" => "$nagios_epoch"
+        },
+        "stateCount" => { "$sum" => 1 }
+    }},
+                                      { "$group" => {
+                                          "_id" => "$_id.nagios_hostname",
+                                          "notifications" => {
+                                              "$push" => {
+                                                  "state" =>  "$_id.nagios_state",
+                                                  "count" => "$stateCount",
+                                                  "service" =>  "$_id.nagios_service",
+                                                  "date" => "$_id.nagios_epoch"
+                                              },
+                                          }
+                                      }})
+    return aggregate
+  end
+
 end

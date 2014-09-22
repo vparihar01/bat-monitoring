@@ -45,4 +45,4 @@ gem 'gcm'
 # Use debugger
 # gem 'debugger', group: [:development, :test]
 
-gem 'moped', :git => 'git://github.com/mongoid/moped.git'
+gem 'moped'#, :git => 'git://github.com/mongoid/moped.git'
